@@ -22,7 +22,7 @@ $repository->search('Albert Einstein')->get()
 
 Version | Supported Laravel Versions
 :---------|:----------
-1.0.x | 5.3.x
+1.0.x | 5.3.x, 6.x
 
 Require this package  
 
