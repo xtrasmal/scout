@@ -1,10 +1,13 @@
 <?php 
 namespace LaravelDoctrine\Scout;
 
+use App\Entities\Datasets\Club;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Laravel\Scout\Builder;
 use Laravel\Scout\EngineManager;
 use Laravel\Scout\Events\ModelsImported;
@@ -21,11 +24,20 @@ class SearchableRepository extends EntityRepository
      *
      * @param EngineManager $engine The search engine manager
      */
-    public function __construct($em, ClassMetadata $class)
+    public function __construct($em, ClassMetadata $class, EngineManager $engine)
     {
         parent::__construct($em, $class);
-        $this->engine = app()->make(EngineManager::class);
+        $this->engine = $engine;
     }
+
+    /**
+     * @return $this
+     */
+    public function newQuery()
+    {
+        return $this;
+    }
+
     /**
      * @param                $query
      * @param  \Closure|null $callback
